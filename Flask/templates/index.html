@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next Word Predictor</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Next Word Predictor</h1>
+    <form id="predict-form">
+        <label for="user_input">Enter text:</label>
+        <input type="text" id="user_input" name="user_input" required>
+        <button type="submit">Predict</button>
+    </form>
+    <h3>Predicted Next Word: <span id="result"></span></h3>
+    <script>
+        $('#predict-form').on('submit', function(e) {
+            e.preventDefault();
+            const userInput = $('#user_input').val();
+            $.post('/predict', { user_input: userInput }, function(data) {
+                $('#result').text(data.next_word);
+            });
+        });
+    </script>
+</body>
+</html>
